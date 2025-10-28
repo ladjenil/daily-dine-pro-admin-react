@@ -1,12 +1,7 @@
 export const COLORS = {
-  primary: '#FF7A00',
-  secondary: '#FFD8A9',
-  background: '#F8F9FB',
-  white: '#FFFFFF',
-  textDark: '#2E2E2E',
-  textLight: '#777',
-  success: '#A3E4A3',
-  danger: '#F5B7B1',
-  warning: '#F9E79F',
-  gray: '#E5E5E5',
+  primary: "#2563eb", // blue-600
+  success: "#16a34a", // green-600
+  warning: "#f59e0b", // amber-500
+  danger: "#dc2626",  // red-600
+  gray: "#6b7280",    // gray-500
 };
