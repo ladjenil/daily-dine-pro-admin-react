@@ -1,24 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { COLORS } from './colors';
-
-export const GLOBAL_STYLES = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-    padding: 20
-  },
-  card: {
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: COLORS.border
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: COLORS.textDark,
-    marginBottom: 10
-  }
-});
+export const STYLES = {
+  card: "bg-white rounded-xl shadow p-4",
+  title: "text-xl font-semibold text-gray-800 mb-4",
+  tableHeader: "text-left text-sm font-semibold text-gray-500 uppercase border-b pb-2",
+  tableRow: "py-3 border-b hover:bg-gray-50 transition",
+};

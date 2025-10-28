@@ -1,18 +1,26 @@
 export const DATA = {
   dashboard: {
-    messOwners: 1250,
-    customers: 15830,
-    pendingVerifications: 15,
-    openQueries: 8
+    totalCustomers: 128,
+    totalMessOwners: 42,
+    totalOrders: 560,
+    totalRevenue: 32000,
   },
   customers: [
-    { id: 'CUS001', name: 'Aarav Sharma', email: 'aarav.sharma@example.com', status: 'Active' },
-    { id: 'CUS002', name: 'Diya Patel', email: 'diya.patel@example.com', status: 'Inactive' },
-    { id: 'CUS003', name: 'Rohan Mehta', email: 'rohan.mehta@example.com', status: 'Pending' },
-    { id: 'CUS004', name: 'Priya Singh', email: 'priya.singh@example.com', status: 'Active' }
+    { id: 1, name: "Riya Shah", email: "riya@example.com", status: "Active" },
+    { id: 2, name: "Amit Patel", email: "amit@example.com", status: "Inactive" },
+    { id: 3, name: "Priya Desai", email: "priya@example.com", status: "Active" },
   ],
   messOwners: [
-    { name: "Anand's Kitchen", email: 'anand@kitchen.com', status: 'Pending', date: '2025-10-24' },
-    { name: "Priya's Meals", email: 'priya@meals.com', status: 'Approved', date: '2025-10-23' }
-  ]
+    { id: 1, name: "Mess Delight", owner: "Nirav Mehta", status: "Approved" },
+    { id: 2, name: "FoodZone", owner: "Kiran Joshi", status: "Pending" },
+  ],
+  dailyMenu: [
+    { id: 1, dish: "Paneer Butter Masala", price: "₹120" },
+    { id: 2, dish: "Dal Tadka", price: "₹80" },
+    { id: 3, dish: "Jeera Rice", price: "₹60" },
+  ],
+  queries: [
+    { id: 1, name: "Manav", message: "Issue with order #231", status: "Open" },
+    { id: 2, name: "Neha", message: "Requesting refund", status: "Closed" },
+  ],
 };
