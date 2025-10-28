@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import { GLOBAL_STYLES } from '../constants/styles';
@@ -7,9 +6,9 @@ import { DATA } from '../constants/data';
 
 export default function CustomersScreen() {
   return (
-    <View style={GLOBAL_STYLES.container}>
+    <div style={GLOBAL_STYLES.container}>
       <Header title="Customers" />
       <Table rows={DATA.customers} />
-    </View>
+    </div>
   );
 }
