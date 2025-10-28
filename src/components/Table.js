@@ -1,24 +1,31 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { GLOBAL_STYLES } from '../constants/styles';
-import StatusBadge from './StatusBadge';
+import React from "react";
+import { STYLES } from "../constants/styles";
 
-export default function Table({ rows }) {
+export default function Table({ columns, data }) {
   return (
-    <View style={GLOBAL_STYLES.card}>
-      {rows.map((row, idx) => (
-        <View key={idx} style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          marginBottom: 8
-        }}>
-          <View>
-            <Text style={{ fontWeight: '600' }}>{row.name || row.id}</Text>
-            <Text style={{ color: '#777' }}>{row.email}</Text>
-          </View>
-          <StatusBadge status={row.status} />
-        </View>
-      ))}
-    </View>
+    <div className={`${STYLES.card} overflow-x-auto`}>
+      <table className="w-full text-left text-sm">
+        <thead>
+          <tr>
+            {columns.map((col, idx) => (
+              <th key={idx} className={STYLES.tableHeader}>
+                {col.header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((row, i) => (
+            <tr key={i} className={STYLES.tableRow}>
+              {columns.map((col, j) => (
+                <td key={j} className="py-2">
+                  {row[col.accessor]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

@@ -1,27 +1,21 @@
-import React from 'react';
-import { View, Text, TextInput } from 'react-native';
-import { COLORS } from '../constants/colors';
+import React from "react";
 
-export default function Header({ title }) {
+export default function Header() {
   return (
-    <View style={{
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: 20
-    }}>
-      <Text style={{ fontSize: 22, fontWeight: '700', color: COLORS.textDark }}>{title}</Text>
-      <TextInput
-        placeholder="Search..."
-        style={{
-          width: 280,
-          backgroundColor: COLORS.white,
-          borderRadius: 8,
-          borderWidth: 1,
-          borderColor: COLORS.border,
-          padding: 8
-        }}
-      />
-    </View>
+    <header className="flex items-center justify-between bg-white px-6 py-3 shadow-sm border-b">
+      <h1 className="text-lg font-semibold text-gray-700">Admin Dashboard</h1>
+      <div className="flex items-center gap-4">
+        <input
+          type="text"
+          placeholder="Search..."
+          className="border rounded-lg px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <img
+          src="https://ui-avatars.com/api/?name=Admin"
+          alt="Admin"
+          className="w-8 h-8 rounded-full border"
+        />
+      </div>
+    </header>
   );
 }
