@@ -1,34 +1,37 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { COLORS } from '../constants/colors';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-export default function Sidebar({ active, onChange }) {
-  const menu = [
-    'Dashboard',
-    'Mess Owners',
-    'Customers',
-    'Daily Menu',
-    'Queries'
-  ];
+const navItems = [
+  { name: "Dashboard", path: "/" },
+  { name: "Customers", path: "/customers" },
+  { name: "Mess Owners", path: "/mess-owners" },
+  { name: "Daily Menu", path: "/daily-menu" },
+  { name: "Queries", path: "/queries" },
+];
 
+export default function Sidebar() {
   return (
-    <View style={{
-      width: 240,
-      height: '100vh',
-      backgroundColor: COLORS.white,
-      borderRightWidth: 1,
-      borderColor: COLORS.border,
-      padding: 20
-    }}>
-      <Text style={{ fontSize: 20, fontWeight: '700', marginBottom: 20, color: COLORS.primary }}>DailyDine</Text>
-      {menu.map(item => (
-        <TouchableOpacity key={item} onPress={() => onChange(item)} style={{ marginBottom: 12 }}>
-          <Text style={{
-            color: active === item ? COLORS.primary : COLORS.textDark,
-            fontWeight: active === item ? '700' : '500'
-          }}>{item}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
+    <aside className="w-64 bg-white border-r shadow-sm flex flex-col">
+      <div className="text-2xl font-bold text-blue-600 p-6 border-b">
+        DailyDine Admin
+      </div>
+      <nav className="flex-1 p-4 space-y-2">
+        {navItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              `block px-4 py-2 rounded-lg text-gray-700 font-medium ${
+                isActive
+                  ? "bg-blue-100 text-blue-600"
+                  : "hover:bg-gray-100 hover:text-blue-500"
+              }`
+            }
+          >
+            {item.name}
+          </NavLink>
+        ))}
+      </nav>
+    </aside>
   );
 }
