@@ -1,21 +1,29 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { COLORS } from '../constants/colors';
+import React from "react";
+import { COLORS } from "../constants/colors";
 
 export default function StatusBadge({ status }) {
-  let color = COLORS.gray;
-  if (status === 'Active' || status === 'Approved') color = COLORS.success;
-  if (status === 'Inactive' || status === 'Restricted') color = COLORS.danger;
-  if (status === 'Pending') color = COLORS.warning;
+  const getColor = () => {
+    switch (status.toLowerCase()) {
+      case "active":
+      case "approved":
+        return COLORS.success;
+      case "inactive":
+      case "closed":
+        return COLORS.danger;
+      case "pending":
+      case "open":
+        return COLORS.warning;
+      default:
+        return COLORS.gray;
+    }
+  };
 
   return (
-    <View style={{
-      backgroundColor: color,
-      borderRadius: 12,
-      paddingHorizontal: 8,
-      paddingVertical: 4
-    }}>
-      <Text style={{ fontSize: 12 }}>{status}</Text>
-    </View>
+    <span
+      className="px-2 py-1 text-xs font-medium rounded-full text-white"
+      style={{ backgroundColor: getColor() }}
+    >
+      {status}
+    </span>
   );
 }
