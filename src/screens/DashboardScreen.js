@@ -1,23 +1,19 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import { GLOBAL_STYLES } from '../constants/styles';
-import { DATA } from '../constants/data';
+import React from "react";
+import { DATA } from "../constants/data";
+import ChartCard from "../components/ChartCard";
 
 export default function DashboardScreen() {
   const d = DATA.dashboard;
+
   return (
-    <View style={GLOBAL_STYLES.container}>
-      <Text style={GLOBAL_STYLES.title}>Dashboard</Text>
-      <View style={{ flexDirection: 'row', gap: 12 }}>
-        <View style={[GLOBAL_STYLES.card, { flex: 1 }]}>
-          <Text>Total Mess Owners</Text>
-          <Text style={{ fontSize: 28, fontWeight: '700' }}>{d.messOwners}</Text>
-        </View>
-        <View style={[GLOBAL_STYLES.card, { flex: 1 }]}>
-          <Text>Total Customers</Text>
-          <Text style={{ fontSize: 28, fontWeight: '700' }}>{d.customers}</Text>
-        </View>
-      </View>
-    </View>
+    <div>
+      <h2 className="text-2xl font-semibold mb-6">Dashboard Overview</h2>
+      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6">
+        <ChartCard title="Total Customers" value={d.totalCustomers} />
+        <ChartCard title="Mess Owners" value={d.totalMessOwners} />
+        <ChartCard title="Total Orders" value={d.totalOrders} />
+        <ChartCard title="Total Revenue" value={`₹${d.totalRevenue}`} />
+      </div>
+    </div>
   );
 }
