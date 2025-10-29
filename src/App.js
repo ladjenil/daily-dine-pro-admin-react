@@ -1,42 +1,49 @@
 import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import DashboardScreen from './screens/DashboardScreen';
-import MessOwnersScreen from './screens/MessOwnersScreen';
-import CustomersScreen from './screens/CustomersScreen';
-import QueriesScreen from './screens/QueriesScreen';
-import VerificationScreen from './screens/VerificationScreen'; // Based on your HTML
+import { Routes, Route, Navigate } from 'react-router-dom';
+import MainApp from './MainApp'; // Your entire Dashboard app
+import LoginScreen from './screens/LoginScreen';
 
 function App() {
-  // This state replaces the showSection() function
-  const [activeScreen, setActiveScreen] = useState('dashboard');
+  // In a real app, you'd check localStorage for a token
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // This object maps the state to the correct screen component
-  const screens = {
-    dashboard: <DashboardScreen />,
-    'mess-owners': <MessOwnersScreen />,
-    customers: <CustomersScreen />,
-    queries: <QueriesScreen />,
-    verification: <VerificationScreen />,
+  // This function will be passed to LoginScreen
+  const handleLogin = () => {
+    // This is where you would set the auth token
+    console.log('Login successful!');
+    setIsLoggedIn(true);
+  };
+
+  // This function would be passed to MainApp to handle logout
+  const handleLogout = () => {
+    // This is where you would clear the auth token
+    console.log('Logout successful!');
+    setIsLoggedIn(false);
   };
 
   return (
-    <div className="flex h-full min-h-screen">
-      {/* Sidebar component */}
-      <Sidebar activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-
-      {/* Main Content Area */}
-      <div className="flex-1 overflow-auto">
-        {/* Header component */}
-        <Header activeScreen={activeScreen} />
-
-        {/* Page content */}
-        <main className="p-6">
-          {/* Render the active screen component */}
-          {screens[activeScreen]}
-        </main>
-      </div>
-    </div>
+    <Routes>
+      <Route
+        path="/login"
+        element={
+          isLoggedIn ? (
+            <Navigate to="/" replace />
+          ) : (
+            <LoginScreen onLogin={handleLogin} />
+          )
+        }
+      />
+      <Route
+        path="/*"
+        element={
+          isLoggedIn ? (
+            <MainApp onLogout={handleLogout} />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+    </Routes>
   );
 }
 

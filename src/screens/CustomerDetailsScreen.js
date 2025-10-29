@@ -7,10 +7,10 @@ export default function CustomerDetailScreen() {
   // For demo purposes, fake data
   const customer = {
     id,
-    name: "John Doe",
-    email: "john@example.com",
-    phone: "+91 98765 43210",
-    address: "Ahmedabad, Gujarat",
+    name: "jenil lad",
+    email: "Jenillad@example.com",
+    phone: "+91 1234567890",
+    address: "Bilimora, Gujarat",
   };
 
   return (
