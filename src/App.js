@@ -1,41 +1,43 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import DashboardScreen from './screens/DashboardScreen';
-import CustomersScreen from './screens/CustomersScreen';
-import CustomerDetailsScreen from './screens/CustomerDetailsScreen';
 import MessOwnersScreen from './screens/MessOwnersScreen';
-import MessOwnerDetailsScreen from './screens/MessOwnerDetailsScreen';
-import DailyMenuScreen from './screens/DailyMenuScreen';
+import CustomersScreen from './screens/CustomersScreen';
 import QueriesScreen from './screens/QueriesScreen';
-import { GLOBAL_STYLES } from './constants/styles';
+import VerificationScreen from './screens/VerificationScreen'; // Based on your HTML
 
-export default function App() {
-  const [selectedScreen, setSelectedScreen] = useState('Dashboard');
+function App() {
+  // This state replaces the showSection() function
+  const [activeScreen, setActiveScreen] = useState('dashboard');
 
-  const renderScreen = () => {
-    switch (selectedScreen) {
-      case 'Dashboard': return <DashboardScreen />;
-      case 'Customers': return <CustomersScreen />;
-      case 'Customer Details': return <CustomerDetailsScreen />;
-      case 'Mess Owners': return <MessOwnersScreen />;
-      case 'Mess Owner Details': return <MessOwnerDetailsScreen />;
-      case 'Daily Menu': return <DailyMenuScreen />;
-      case 'Queries': return <QueriesScreen />;
-      default: return <DashboardScreen />;
-    }
+  // This object maps the state to the correct screen component
+  const screens = {
+    dashboard: <DashboardScreen />,
+    'mess-owners': <MessOwnersScreen />,
+    customers: <CustomersScreen />,
+    queries: <QueriesScreen />,
+    verification: <VerificationScreen />,
   };
 
   return (
-    <View style={{ flexDirection: 'row', flex: 1, height: '100vh' }}>
-      <Sidebar onSelect={setSelectedScreen} selected={selectedScreen} />
-      <View style={{ flex: 1 }}>
-        <Header title={selectedScreen} />
-        <ScrollView style={GLOBAL_STYLES.container}>
-          {renderScreen()}
-        </ScrollView>
-      </View>
-    </View>
+    <div className="flex h-full min-h-screen">
+      {/* Sidebar component */}
+      <Sidebar activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-auto">
+        {/* Header component */}
+        <Header activeScreen={activeScreen} />
+
+        {/* Page content */}
+        <main className="p-6">
+          {/* Render the active screen component */}
+          {screens[activeScreen]}
+        </main>
+      </div>
+    </div>
   );
 }
+
+export default App;
