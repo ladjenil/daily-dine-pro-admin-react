@@ -2,7 +2,7 @@
   "name": "daily-dine-admin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://devtamakuwala.github.io/daily-dine-admin-react",
+  "homepage": "https://devtamakuwala.github.io/daily-dine-pro-admin-react",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
