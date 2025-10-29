@@ -1,36 +1,43 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import Header from "./components/Header";
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import Header from './components/Header';
+import DashboardScreen from './screens/DashboardScreen';
+import MessOwnersScreen from './screens/MessOwnersScreen';
+import CustomersScreen from './screens/CustomersScreen';
+import QueriesScreen from './screens/QueriesScreen';
+import VerificationScreen from './screens/VerificationScreen'; // Based on your HTML
 
-import DashboardScreen from "./screens/DashboardScreen";
-import CustomersScreen from "./screens/CustomersScreen";
-import CustomerDetailsScreen from "./screens/CustomerDetailsScreen";
-import MessOwnersScreen from "./screens/MessOwnersScreen";
-import MessOwnerDetailScreen from "./screens/MessOwnerDetailScreen";
-import DailyMenuScreen from "./screens/DailyMenuScreen";
-import QueriesScreen from "./screens/QueriesScreen";
+function App() {
+  // This state replaces the showSection() function
+  const [activeScreen, setActiveScreen] = useState('dashboard');
 
-import "./App.css";
+  // This object maps the state to the correct screen component
+  const screens = {
+    dashboard: <DashboardScreen />,
+    'mess-owners': <MessOwnersScreen />,
+    customers: <CustomersScreen />,
+    queries: <QueriesScreen />,
+    verification: <VerificationScreen />,
+  };
 
-export default function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <Sidebar />
-        <div className="main-content">
-          <Header />
-          <Routes>
-            <Route path="/" element={<DashboardScreen />} />
-            <Route path="/customers" element={<CustomersScreen />} />
-            <Route path="/customers/:id" element={<CustomerDetailsScreen />} />
-            <Route path="/mess-owners" element={<MessOwnersScreen />} />
-            <Route path="/mess-owners/:id" element={<MessOwnerDetailScreen />} />
-            <Route path="/daily-menu" element={<DailyMenuScreen />} />
-            <Route path="/queries" element={<QueriesScreen />} />
-          </Routes>
-        </div>
+    <div className="flex h-full min-h-screen">
+      {/* Sidebar component */}
+      <Sidebar activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-auto">
+        {/* Header component */}
+        <Header activeScreen={activeScreen} />
+
+        {/* Page content */}
+        <main className="p-6">
+          {/* Render the active screen component */}
+          {screens[activeScreen]}
+        </main>
       </div>
-    </Router>
+    </div>
   );
 }
+
+export default App;
