@@ -1,6 +1,7 @@
 // src/components/LoginCard.js
 
 import React, { useState } from 'react';
+import { login as apiLogin, saveToken } from '../services/auth';
 
 const EyeIcon = () => (
   <>
@@ -60,7 +61,7 @@ const LoginCard = ({ onShowForgotPassword, onLogin, config }) => {
   // Add error state
   const [error, setError] = useState(''); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       setError('Please fill in all fields.');
@@ -70,15 +71,22 @@ const LoginCard = ({ onShowForgotPassword, onLogin, config }) => {
     setLoading(true);
     setSuccess(false);
 
-    // Simulate login API call
-    setTimeout(() => {
+    try {
+      const data = await apiLogin(email, password);
+      // If server returns a token, persist it
+      if (data?.token) {
+        saveToken(data.token);
+      }
       setLoading(false);
       setSuccess(true);
-      // Simulate redirect and call parent onLogin
-      setTimeout(() => {
-        onLogin(); // Tell the parent App.js we are logged in
-      }, 1000); // Wait 1 sec on success message
-    }, 1500);
+      // Lift auth data to parent and redirect after a short delay
+      setTimeout(() => onLogin(data), 800);
+    } catch (err) {
+      setLoading(false);
+      // axios error objects often have response.data.message
+      const serverMessage = err?.response?.data?.message || err?.message;
+      setError(serverMessage || 'Login failed. Please try again.');
+    }
   };
 
   return (
