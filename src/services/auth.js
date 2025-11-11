@@ -6,8 +6,12 @@ import api from './apiClient';
  * Resolves with server payload (e.g. { token, user }) or throws an axios error.
  */
 export async function login(email, password) {
-  const response = await api.post('/api/auth/login', { email, password });
-  return response.data;
+  // Return the full axios response so callers can inspect status and headers (e.g. 302 Location)
+  const response = await api.post('/api/auth/login', {
+    email,
+    password,
+  });
+  return response;
 }
 
 export function saveToken(token) {

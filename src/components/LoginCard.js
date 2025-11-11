@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { login as apiLogin, saveToken } from '../services/auth';
+import api from '../services/apiClient';
 
 const EyeIcon = () => (
   <>
@@ -72,7 +73,23 @@ const LoginCard = ({ onShowForgotPassword, onLogin, config }) => {
     setSuccess(false);
 
     try {
-      const data = await apiLogin(email, password);
+        // Print the full URL that will be called for login (baseURL + path)
+        try {
+          const base = api.defaults && api.defaults.baseURL ? api.defaults.baseURL : '';
+          const fullUrl = base ? new URL('/api/auth/login', base).toString() : '/api/auth/login';
+          console.log('Login request URL:', fullUrl);
+        } catch (urlErr) {
+          // fallback safe log
+          console.log('Login request path: /api/auth/login');
+        }
+
+        console.log('Login attempt with email:', email);
+        console.log('Login attempt with password:', password);
+
+        const data = await apiLogin(email, password);
+      
+        console.log('Login response:', data);
+
       // If server returns a token, persist it
       if (data?.token) {
         saveToken(data.token);
@@ -82,6 +99,7 @@ const LoginCard = ({ onShowForgotPassword, onLogin, config }) => {
       // Lift auth data to parent and redirect after a short delay
       setTimeout(() => onLogin(data), 800);
     } catch (err) {
+      console.error('Login error:', err);
       setLoading(false);
       // axios error objects often have response.data.message
       const serverMessage = err?.response?.data?.message || err?.message;
